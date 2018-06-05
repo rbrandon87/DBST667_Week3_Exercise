@@ -29,4 +29,3 @@ head(credit$A14)
 credit$A15 <- discretize(credit$A15, "cluster", breaks = 6)
 head(credit$A15)
 str(credit)
-
