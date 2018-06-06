@@ -40,3 +40,27 @@ rules<-apriori(credit, parameter = list(minlen=2, supp=0.2, conf=0.9))
 inspect(rules[1:10])
 rules<-apriori(credit, parameter = list(minlen=2, supp=0.2, conf=0.9), appearance = list(rhs=c("A5=p", "A9=t"), default="lhs"))
 inspect(rules[1:10])
+#Part2e
+#Include only transactions with rhs=class[+/-]
+rules<-apriori(credit, appearance = list(rhs=c("class=+", "class=-"), default="lhs"))
+inspect(rules[1:10])
+summary(credit$A7)
+summary(credit$A9)
+#Part2fii
+#Find redundant rules
+rules.sorted<-sort(rules, by="lift")
+inspect(rules.sorted)
+subset.matrix<-is.subset(rules.sorted, rules.sorted)
+subset.matrix[lower.tri(subset.matrix, diag=T)]<-NA #This gives error. Fix is below
+#subset.matrix
+#redundant<-colSums(subset.matrix, na.rm=T)>=1 
+#which(redundant)
+#Remove the redundant rules
+#rm(subset.matrix)
+#rm(redundant)
+redundant <- is.redundant(rules.sorted)
+redundant
+which(redundant)
+#Part2fiii
+rules.pruned<-rules.sorted[!redundant]
+inspect(rules.pruned)
