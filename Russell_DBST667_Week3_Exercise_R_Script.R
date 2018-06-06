@@ -29,3 +29,14 @@ head(credit$A14)
 credit$A15 <- discretize(credit$A15, "cluster", breaks = 6)
 head(credit$A15)
 str(credit)
+#Part2ci
+#Run Apriori method with defaults
+rules<-apriori(credit)
+rules
+inspect(rules[1:10])
+#Part2di
+#Change default values twice and discuss
+rules<-apriori(credit, parameter = list(minlen=2, supp=0.2, conf=0.9))
+inspect(rules[1:10])
+rules<-apriori(credit, parameter = list(minlen=2, supp=0.2, conf=0.9), appearance = list(rhs=c("A5=p", "A9=t"), default="lhs"))
+inspect(rules[1:10])
