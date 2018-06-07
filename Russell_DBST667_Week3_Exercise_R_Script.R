@@ -50,8 +50,8 @@ summary(credit$A9)
 #Find redundant rules
 rules.sorted<-sort(rules, by="lift")
 inspect(rules.sorted)
-subset.matrix<-is.subset(rules.sorted, rules.sorted)
-subset.matrix[lower.tri(subset.matrix, diag=T)]<-NA #This gives error. Fix is below
+#subset.matrix<-is.subset(rules.sorted, rules.sorted)
+#subset.matrix[lower.tri(subset.matrix, diag=T)]<-NA #This gives error. Fix is below
 #subset.matrix
 #redundant<-colSums(subset.matrix, na.rm=T)>=1 
 #which(redundant)
@@ -64,3 +64,6 @@ which(redundant)
 #Part2fiii
 rules.pruned<-rules.sorted[!redundant]
 inspect(rules.pruned)
+#Part2g
+#Provide a plot of the support, confidence, and support of pruned rules
+plot(rules.pruned)
